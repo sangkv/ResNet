@@ -1,6 +1,7 @@
 import os
-import time
 import copy
+import time
+
 from PIL import Image
 
 import torch
@@ -105,7 +106,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     return best_model_params
 
 # TRANSFER LEARNING
-model_conv = torchvision.models.resnet18(weights='IMAGENET1K_V1')
+model_conv = torchvision.models.resnet50(weights='IMAGENET1K_V2')
 for param in model_conv.parameters():
     param.requires_grad = False
 

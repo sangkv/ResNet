@@ -1,6 +1,7 @@
 import os
-import time
 import copy
+import time
+
 from PIL import Image
 
 import torch
@@ -104,8 +105,8 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     # return best model weights
     return best_model_params
 
-# FINETUNING
-model_ft = torch.load('trained-models/transfer-learning-model.pth')
+# FINE-TUNING
+model_ft = torch.load('trained-models/transfer-learning-model.pth', weights_only=False)
 for param in model_ft.parameters():
     param.requires_grad = True
 

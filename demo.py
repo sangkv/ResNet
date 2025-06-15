@@ -8,7 +8,7 @@ from PIL import Image
 class ImageClassifier:
     def __init__(self, model_dir):
         self.device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-        self.model = torch.load(model_dir).to(self.device).eval()
+        self.model = torch.load(model_dir, weights_only=False).to(self.device).eval()
         self.data_transforms = transforms.Compose([
             transforms.Resize(256),
             transforms.CenterCrop(224),
@@ -31,17 +31,17 @@ class ImageClassifier:
         
         return result
 
-
 classifier = ImageClassifier(model_dir='trained-models/fine-tuning-model.pth')
 
-listFiles = os.listdir('data/test/')
-sumTime = 0
-for file in listFiles:
-    image = Image.open('data/test/'+file)
+data_dir = 'data/hymenoptera_data/test'
+sum_time = 0
+for file in os.listdir(data_dir):
+    image = Image.open(os.path.join(data_dir, file))
     
     t0 = time.time()
     result = classifier.predict(image)
     t1 = time.time()
-    sumTime = sumTime + (t1-t0)
+    sum_time = sum_time + (t1-t0)
     print("\nThe predicted result of image '%s' is: "%file, result)
-print("\n\nSum time: ", sumTime, ", The average time: ", (sumTime/len(listFiles)))
+print("\n\nSum time: ", sum_time, ", The average time: ", (sum_time/len(os.listdir(data_dir))))
+
