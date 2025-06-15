@@ -1,5 +1,5 @@
-# ResNet-18-fine-tuning
-Image classification using fine-tuning with ResNet-18
+# ResNet
+Image classification using fine-tuning with ResNet
 
 ## Install:
 
